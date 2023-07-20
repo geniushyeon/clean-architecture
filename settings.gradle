@@ -1,1 +1,3 @@
 rootProject.name = 'architecture'
+include 'module-common'
+include 'module-app'
