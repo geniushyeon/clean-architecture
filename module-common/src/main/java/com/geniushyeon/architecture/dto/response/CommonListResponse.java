@@ -2,12 +2,14 @@ package com.geniushyeon.architecture.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@SuperBuilder
 public class CommonListResponse<T> extends CommonResponse<T> {
 
     @Builder.Default
@@ -17,7 +19,7 @@ public class CommonListResponse<T> extends CommonResponse<T> {
     private boolean hasNext = false;
 
     @Builder.Default
-    private List<T> data = new ArrayList<>();
+    private List<T> items = new ArrayList<>();
 
     public CommonListResponse(HttpStatus status) {
         super(status);
@@ -26,7 +28,7 @@ public class CommonListResponse<T> extends CommonResponse<T> {
     public CommonListResponse<T> add(int total, boolean hasNext, List<T> data) {
         this.total = total;
         this.hasNext = hasNext;
-        this.data.addAll(data);
+        this.items.addAll(data);
 
         return this;
     }
