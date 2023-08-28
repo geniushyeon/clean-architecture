@@ -65,6 +65,7 @@ project(':module-app') {
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
