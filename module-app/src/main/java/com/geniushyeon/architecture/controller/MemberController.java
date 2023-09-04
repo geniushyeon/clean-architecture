@@ -23,4 +23,9 @@ public class MemberController implements MemberSwagger {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login_form";
+    }
 }
