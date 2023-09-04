@@ -1,5 +1,6 @@
 package com.geniushyeon.architecture.service;
 
+import com.geniushyeon.architecture.dto.request.SignUpRequestDTO;
 import com.geniushyeon.architecture.entity.Member;
 import com.geniushyeon.architecture.enumerable.EnumErrorCode;
 import com.geniushyeon.architecture.exception.ClientException;
@@ -11,9 +12,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.geniushyeon.architecture.enumerable.EnumErrorCode.*;
 
@@ -23,6 +27,7 @@ import static com.geniushyeon.architecture.enumerable.EnumErrorCode.*;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Member getMember(Long id) {
         return memberRepository.findById(id)
@@ -36,5 +41,19 @@ public class MemberService implements UserDetailsService {
 
         // TODO: 추후 권한 관련 로직 추가
         return new User(member.getUsername(), member.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+    }
+
+    @Transactional
+    public void signUp(SignUpRequestDTO requestDTO) {
+        Optional<Member> byUsername = memberRepository.findByUsername(requestDTO.getUsername());
+
+        if (byUsername.isPresent()) {
+            throw new ClientException.Conflict(MEMBER_ALREADY_EXISTS);
+        }
+
+        Member member = requestDTO.toEntity();
+        member.encodePassword(passwordEncoder);
+
+        memberRepository.save(member);
     }
 }

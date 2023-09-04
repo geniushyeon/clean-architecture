@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .cors().disable() // 모든 cross origin 요청 차단
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                        .requestMatchers("/members/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
