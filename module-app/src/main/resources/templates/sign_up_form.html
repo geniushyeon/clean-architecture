@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/members}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="button" value="Sign Up" onclick="signUp()"/></div>
+</form>
+<script>
+    function signUp() {
+        const formData = {
+            username: document.getElementsByName("username")[0].value,
+            password: document.getElementsByName("password")[0].value
+        };
+        fetch("/members", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }).then(response => {
+                if (response.ok) {
+                    alert("회원가입이 완료되었습니다.");
+                    location.href = "/login";
+                } else {
+                    alert("회원가입에 실패하였습니다.");
+                }
+            }
+        );
+    }
+</script>
+</body>
+</html>

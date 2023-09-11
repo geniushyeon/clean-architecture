@@ -28,4 +28,9 @@ public class MemberController implements MemberSwagger {
     public String login() {
         return "login_form";
     }
+
+    @GetMapping("/sign-up")
+    public String showSignUp() {
+        return "sign_up_form";
+    }
 }
