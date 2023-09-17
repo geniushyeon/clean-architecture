@@ -37,9 +37,8 @@ public class MemberService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new ClientException.NotFound(MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new UsernameNotFoundException(MEMBER_NOT_FOUND.getMessage()));
 
-        // TODO: 추후 권한 관련 로직 추가
         return new User(member.getUsername(), member.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
@@ -55,5 +54,6 @@ public class MemberService implements UserDetailsService {
         member.encodePassword(passwordEncoder);
 
         memberRepository.save(member);
+        log.info("회원가입 완료");
     }
 }
