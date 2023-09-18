@@ -13,7 +13,7 @@ public enum EnumErrorCode {
     TOKEN_INVALID(100003, "유효하지 않은 토큰입니다."),
 
     MEMBER_NOT_FOUND(200001, "회원을 찾을 수 없습니다."),
-    ;
+    MEMBER_ALREADY_EXISTS(200002, "이미 가입된 회원입니다." );
 
     private final int result;
     private final String message;
