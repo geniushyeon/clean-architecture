@@ -29,8 +29,8 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Member getMember(Long id) {
-        return memberRepository.findById(id)
+    public Member getMember(String username) {
+        return memberRepository.findByUsername(username)
                 .orElseThrow(() -> new ClientException.NotFound(MEMBER_NOT_FOUND));
     }
 

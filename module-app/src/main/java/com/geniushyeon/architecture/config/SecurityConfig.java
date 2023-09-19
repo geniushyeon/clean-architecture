@@ -5,6 +5,7 @@ import com.geniushyeon.architecture.handler.CustomAuthenticationEntryPoint;
 import com.geniushyeon.architecture.handler.LoginSuccessHandler;
 import com.geniushyeon.architecture.service.MemberService;
 
+import com.geniushyeon.architecture.service.TokenService;
 import jakarta.servlet.DispatcherType;
 
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import java.util.List;
-
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
@@ -29,6 +28,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final MemberService memberService;
+    private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
@@ -62,13 +62,16 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .successHandler(loginSuccessHandler()))
                 .logout(withDefaults())
-                .apply(new CustomAuthenticationConfigurer(memberService, passwordEncoder));
+                .apply(new JwtSecurityConfig(tokenService))
+                .and()
+                .apply(new CustomAuthenticationConfigurer(memberService, passwordEncoder))
+        ;
 
         return http.build();
     }
 
     @Bean
     public AuthenticationSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler();
+        return new LoginSuccessHandler(tokenService, memberService);
     }
 }

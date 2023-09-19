@@ -24,6 +24,6 @@ springdoc:
 # JWT
 jwt:
   access-token:
-    secret: RSofQYXuYnt2ik0CD0kMj5C6gJK45Q
+    secret: RSofQYXuYnt2ik0CD0kMj5C6gJK45QRSofQYXuYnt2ik0CD0kMj5C6gJK45Q
   refresh-token:
-    secret: vZVNPaPB6giQ9c11vTD8Fi1v2Sk7bM
+    secret: vZVNPaPB6giQ9c11vTD8Fi1v2Sk7bMvZVNPaPB6giQ9c11vTD8Fi1v2Sk7bM
