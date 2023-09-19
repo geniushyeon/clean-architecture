@@ -64,6 +64,7 @@ project(':module-app') {
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 		implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
@@ -93,6 +94,7 @@ project(':module-common') {
 		implementation 'mysql:mysql-connector-java'
 		implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+		implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
